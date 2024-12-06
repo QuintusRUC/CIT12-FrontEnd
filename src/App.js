@@ -8,10 +8,14 @@ import Rating from "./routes/RatingPage";
 import { BrowserRouter, Routes, Route } from "react-router";
 
 function App() {
+  const user = {
+    id: 0,
+    islogin: false,
+  };
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Navbar />}>
+        <Route path="/" element={<Navbar user={user} />}>
           <Route index element={<Home />} />
           <Route path="search" element={<Search />} />
           <Route path="login" element={<Login />} />

@@ -65,8 +65,8 @@ const NavigationBarUp = ({ islogin }) => {
   );
 };
 
-const NavigationBar = () => {
-  const islogin = true;
+const NavigationBar = ({ user = null }) => {
+  const islogin = user.islogin ? true : false;
   return (
     <>
       <NavigationBarUp islogin={islogin} />
