@@ -9,7 +9,7 @@ import { BrowserRouter, Routes, Route } from "react-router";
 
 function App() {
   const user = {
-    id: 0,
+    id: 1,
     islogin: false,
   };
   return (
@@ -19,8 +19,8 @@ function App() {
           <Route index element={<Home />} />
           <Route path="search" element={<Search />} />
           <Route path="login" element={<Login />} />
-          <Route path="bookmark" element={<Bookmark />} />
-          <Route path="rating" element={<Rating />} />
+          <Route path="bookmark" element={<Bookmark user={user} />} />
+          <Route path="rating" element={<Rating user={user} />} />
         </Route>
       </Routes>
     </BrowserRouter>
