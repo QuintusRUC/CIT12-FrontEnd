@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router";
-import Movie from "../Componant/Movie";
+import Movie from "../Components/Movie";
 
 const SearchResults = ({ data }) => {
   if (!data) {

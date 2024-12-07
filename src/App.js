@@ -1,7 +1,7 @@
 import "./App.css";
 import Navbar from "./Navbar";
 import Home from "./routes/HomePage";
-import Search from "./routes/SearchPage";
+import Search from "./routes/NewSearchPage";
 import Login from "./routes/LoginPage";
 import Bookmark from "./routes/BookmarkPage";
 import Rating from "./routes/RatingPage";

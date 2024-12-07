@@ -1,12 +1,12 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import  Rating  from "../Componant/Rating";
+import Rating from "../Components/Rating";
 
 const RatingPage = ({ user }) => {
   const [rating, setRating] = useState([]);
   const [Loading, setLoading] = useState(true);
   useEffect(() => {
-    fetch("https://localhost:3000/rating") // endpoint don't exist
+    fetch("http://localhost:5221/rating") // endpoint don't exist
       .then((response) => response.json())
       .then((data) => {
         setRating(data);
