@@ -34,7 +34,7 @@ const BookmarkPage = ({ user }) => {
   useEffect(() => {
     fetchBookmarks();
   }, [fetchBookmarks]);
-  NumberPages
+
   const handlePreviousPage = () => {
     if (currentPage > 0) {
       setCurrentPage((prev) => prev - 1);

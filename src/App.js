@@ -12,6 +12,10 @@ function App() {
     id: 1,
     islogin: false,
   };
+  const user2 = {
+    id: 1,
+    islogin: true,
+  };
   return (
     <BrowserRouter>
       <Routes>
@@ -21,6 +25,13 @@ function App() {
           <Route path="login" element={<Login />} />
           <Route path="bookmark" element={<Bookmark user={user} />} />
           <Route path="rating" element={<Rating user={user} />} />
+        </Route>
+        <Route path="test/" element={<Navbar user={user2} />}>
+          <Route index element={<Home />} />
+          <Route path="search" element={<Search />} />
+          <Route path="login" element={<Login />} />
+          <Route path="bookmark" element={<Bookmark user={user2} />} />
+          <Route path="rating" element={<Rating user={user2} />} />
         </Route>
       </Routes>
     </BrowserRouter>

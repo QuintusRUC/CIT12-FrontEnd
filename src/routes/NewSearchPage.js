@@ -103,8 +103,6 @@ const SearchPage = () => {
 
   return (
     <div className="search-page">
-      <h1>Welcome to the Search Page</h1>
-
       <div className="search-input">
         <input
           type="text"
@@ -116,9 +114,9 @@ const SearchPage = () => {
         <button onClick={handleSearch}>Search</button>
       </div>
 
-      {searchTerm && <p>Results for: {searchTerm}</p>}
-
-      <SearchResults data={searchResults} isLoading={isLoading} />
+      {searchTerm && (
+        <SearchResults data={searchResults} isLoading={isLoading} />
+      )}
 
       {searchResults.length > 0 && (
         <SearchPagination

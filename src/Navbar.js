@@ -21,9 +21,6 @@ const NavigationBarUp = ({ islogin }) => {
               variant="underline"
               className="me-auto"
             >
-              <Nav.Link as={NavLink} eventKey="A1" to="/Search">
-                Search
-              </Nav.Link>
               <Nav.Link as={NavLink} eventKey="A2" to="/login">
                 Login
               </Nav.Link>
@@ -46,9 +43,6 @@ const NavigationBarUp = ({ islogin }) => {
             variant="underline"
             className="me-auto"
           >
-            <Nav.Link as={NavLink} eventKey="A1" to="/Search">
-              Search
-            </Nav.Link>
             <Nav.Link as={NavLink} eventKey="A3" to="/bookmark">
               Bookmark
             </Nav.Link>
@@ -70,9 +64,8 @@ const NavigationBar = ({ user = null }) => {
   return (
     <>
       <NavigationBarUp islogin={islogin} />
-      <Container className="my-5">
-        {" "}
-        <Outlet />{" "}
+      <Container className="my-2">
+        <Outlet />
       </Container>
     </>
   );
