@@ -1,6 +1,9 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
+  const navigate = useNavigate();
+
   return (
     <div>
       <h1>Welcome to the Login Page</h1>
@@ -12,6 +15,8 @@ const LoginPage = () => {
         <label htmlFor="Password">Password:</label>
         <input type="password" id="Password" name="Password" /> <br />
         <input type="submit" value="Submit" />
+        <br />
+        <button onClick={() => navigate("/test")}>Test </button>
       </form>
     </div>
   );

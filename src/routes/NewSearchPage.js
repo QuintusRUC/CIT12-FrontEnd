@@ -4,11 +4,13 @@ import Movie from "../Components/Movie";
 
 // Separate utility function for fetching search results
 const fetchSearchResults = async (keyword, page) => {
+  const port = process.env.REACT_APP_BACKEND_PORT || 5221;
   if (!keyword) return null;
 
   try {
+    console.log(`http://localhost:${port}/api/BestMatch/search?keyword1=${encodeURIComponent(keyword)}&page=${page}`);
     const response = await fetch(
-      `http://localhost:5221/api/BestMatch/search?keyword1=${keyword}&page=${page}`
+      `http://localhost:${port}/api/BestMatch/search?keyword1=${encodeURIComponent(keyword)}&page=${page}`
     );
     return await response.json();
   } catch (error) {
@@ -90,7 +92,7 @@ const SearchPage = () => {
     if (searchInput.trim()) {
       setSearchTerm(searchInput);
       setPage(0);
-      navigate(`${location.pathname}?Search=${searchInput}`);
+      navigate(`${location.pathname}?Search=${encodeURIComponent(searchInput)}`);
     } else {
       navigate(location.pathname);
       setSearchTerm("");
@@ -118,7 +120,7 @@ const SearchPage = () => {
         <SearchResults data={searchResults} isLoading={isLoading} />
       )}
 
-      {searchResults.length > 0 && (
+      {searchTerm && (
         <SearchPagination
           page={page}
           totalPages={totalPages}

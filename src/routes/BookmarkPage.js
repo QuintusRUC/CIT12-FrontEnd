@@ -7,12 +7,12 @@ const BookmarkPage = ({ user }) => {
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
   const [error, setError] = useState(null);
-
+  const port = process.env.REACT_APP_BACKEND_PORT || 5221;
   const fetchBookmarks = useCallback(async () => {
     try {
       setIsLoading(true);
       const response = await fetch(
-        `http://localhost:5221/api/GetBookmarksDb/Search?userId=${user.id}&page=${currentPage}`
+        `http://localhost:${port}/api/GetBookmarksDb/Search?userId=${user.id}&page=${currentPage}`
       );
 
       if (!response.ok) {

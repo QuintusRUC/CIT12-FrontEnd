@@ -49,7 +49,7 @@ const NavigationBarUp = ({ islogin }) => {
             <Nav.Link as={NavLink} eventKey="A4" to="/rating">
               Rating
             </Nav.Link>
-            <Nav.Link as={NavLink} eventKey="A2" to="/logout">
+            <Nav.Link as={NavLink} eventKey="A2" to="/">
               Logout
             </Nav.Link>
           </Nav>
