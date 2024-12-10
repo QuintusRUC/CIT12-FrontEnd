@@ -6,7 +6,7 @@ const fetchData = async (url) => {
     const response = await fetch(fullUrl);
 
     if (!response.ok) {
-        console.log("response", response);
+      console.log("response", response);
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 

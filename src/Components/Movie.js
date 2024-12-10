@@ -1,9 +1,9 @@
 import React from "react";
 
-function Movie({ movie }) {
+function Movie({ movie_Title }) {
   return (
     <>
-      <p>{movie.movie_Title}</p>
+      <p>{movie_Title}</p>
     </>
   );
 }

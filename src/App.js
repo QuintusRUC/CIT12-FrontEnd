@@ -5,6 +5,8 @@ import Search from "./routes/NewSearchPage";
 import Login from "./routes/LoginPage";
 import Bookmark from "./routes/BookmarkPage";
 import Rating from "./routes/RatingPage";
+import MoviePage from "./routes/MoviePage";
+import NotFound from "./routes/NotFoud";
 import { BrowserRouter, Routes, Route } from "react-router";
 
 function App() {
@@ -25,6 +27,8 @@ function App() {
           <Route path="login" element={<Login />} />
           <Route path="bookmark" element={<Bookmark user={user} />} />
           <Route path="rating" element={<Rating user={user} />} />
+          <Route path="movie/:title" element={<MoviePage />} />
+          <Route path="*" element={<NotFound />} />
         </Route>
         <Route path="test/" element={<Navbar user={user2} />}>
           <Route index element={<Home />} />
@@ -32,6 +36,8 @@ function App() {
           <Route path="login" element={<Login />} />
           <Route path="bookmark" element={<Bookmark user={user2} />} />
           <Route path="rating" element={<Rating user={user2} />} />
+          <Route path="movie/:title" element={<MoviePage />} />
+          <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
     </BrowserRouter>

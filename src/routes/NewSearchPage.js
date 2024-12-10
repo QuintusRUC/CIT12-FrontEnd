@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Movie from "../Components/Movie";
 import fetchData from "../Components/FetchData";
+import { Pagination, handlePreviousPage, handleNextPage } from "../Components/Pagination";
 
 const fetchSearchResults = async (keyword, page) => {
   if (!keyword) return null;
@@ -30,27 +31,11 @@ const SearchResults = ({ data, isLoading }) => {
   );
 };
 
-const SearchPagination = ({ page, totalPages, onPreviousPage, onNextPage }) => (
-  <div className="pagination">
-    <button onClick={onPreviousPage} disabled={page <= 0}>
-      Previous
-    </button>
-    <span>
-      Page {page + 1} / {totalPages}
-    </span>
-    <button onClick={onNextPage} disabled={page >= totalPages - 1}>
-      Next
-    </button>
-  </div>
-);
-
 const SearchPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
-
   const searchParams = new URLSearchParams(location.search);
   const initialSearch = searchParams.get("Search") || "";
-
   const [searchInput, setSearchInput] = useState(initialSearch);
   const [searchTerm, setSearchTerm] = useState(initialSearch);
   const [searchResults, setSearchResults] = useState([]);
@@ -91,9 +76,6 @@ const SearchPage = () => {
     }
   };
 
-  const handlePreviousPage = () => setPage((prev) => Math.max(0, prev - 1));
-  const handleNextPage = () => setPage((prev) => prev + 1);
-
   return (
     <div className="search-page">
       <div className="search-input">
@@ -112,11 +94,11 @@ const SearchPage = () => {
       )}
 
       {searchTerm && (
-        <SearchPagination
+        <Pagination
           page={page}
           totalPages={totalPages}
-          onPreviousPage={handlePreviousPage}
-          onNextPage={handleNextPage}
+          onPreviousPage={() => handlePreviousPage(setPage)}
+          onNextPage={() => handleNextPage(setPage)}
         />
       )}
     </div>
