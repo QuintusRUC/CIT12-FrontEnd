@@ -1,25 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Movie from "../Components/Movie";
+import fetchData from "../Components/FetchData";
 
-// Separate utility function for fetching search results
 const fetchSearchResults = async (keyword, page) => {
-  const port = process.env.REACT_APP_BACKEND_PORT || 5221;
   if (!keyword) return null;
 
   try {
-    console.log(`http://localhost:${port}/api/BestMatch/search?keyword1=${encodeURIComponent(keyword)}&page=${page}`);
-    const response = await fetch(
-      `http://localhost:${port}/api/BestMatch/search?keyword1=${encodeURIComponent(keyword)}&page=${page}`
+    const response = await fetchData(
+      `api/BestMatch/search?keyword1=${encodeURIComponent(keyword)}&page=${page}`
     );
-    return await response.json();
+    return await response;
   } catch (error) {
     console.error("Search fetch error:", error);
     return null;
   }
 };
 
-// Extracted SearchResults component with improved error handling
 const SearchResults = ({ data, isLoading }) => {
   if (isLoading) return <div>Loading...</div>;
   if (!data || data.length === 0) return <div>No results found</div>;
@@ -33,7 +30,6 @@ const SearchResults = ({ data, isLoading }) => {
   );
 };
 
-// Pagination component to separate pagination logic
 const SearchPagination = ({ page, totalPages, onPreviousPage, onNextPage }) => (
   <div className="pagination">
     <button onClick={onPreviousPage} disabled={page <= 0}>
@@ -48,12 +44,10 @@ const SearchPagination = ({ page, totalPages, onPreviousPage, onNextPage }) => (
   </div>
 );
 
-// Main SearchPage component with improved state management
 const SearchPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Use URL search params more cleanly
   const searchParams = new URLSearchParams(location.search);
   const initialSearch = searchParams.get("Search") || "";
 
@@ -64,7 +58,6 @@ const SearchPage = () => {
   const [totalPages, setTotalPages] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
 
-  // Consolidated search effect
   useEffect(() => {
     const performSearch = async () => {
       if (!searchTerm) return;
@@ -87,7 +80,6 @@ const SearchPage = () => {
     performSearch();
   }, [searchTerm, page]);
 
-  // Handle search submission
   const handleSearch = () => {
     if (searchInput.trim()) {
       setSearchTerm(searchInput);
@@ -99,7 +91,6 @@ const SearchPage = () => {
     }
   };
 
-  // Pagination handlers
   const handlePreviousPage = () => setPage((prev) => Math.max(0, prev - 1));
   const handleNextPage = () => setPage((prev) => prev + 1);
 

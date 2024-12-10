@@ -1,5 +1,5 @@
 import "./App.css";
-import Navbar from "./Navbar";
+import Navbar from "./Components/Navbar";
 import Home from "./routes/HomePage";
 import Search from "./routes/NewSearchPage";
 import Login from "./routes/LoginPage";

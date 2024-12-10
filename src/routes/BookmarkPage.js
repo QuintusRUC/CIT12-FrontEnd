@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import Bookmark from "../Components/Bookmark";
+import fetchData from "../Components/FetchData";
 
 const BookmarkPage = ({ user }) => {
   const [bookmarks, setBookmarks] = useState([]);
@@ -7,19 +8,13 @@ const BookmarkPage = ({ user }) => {
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
   const [error, setError] = useState(null);
-  const port = process.env.REACT_APP_BACKEND_PORT || 5221;
   const fetchBookmarks = useCallback(async () => {
     try {
       setIsLoading(true);
-      const response = await fetch(
-        `http://localhost:${port}/api/GetBookmarksDb/Search?userId=${user.id}&page=${currentPage}`
+      const data = await fetchData(
+        `api/GetBookmarksDb/Search?userId=${user.id}&page=${currentPage}`
       );
 
-      if (!response.ok) {
-        throw new Error("Failed to fetch bookmarks");
-      }
-
-      const data = await response.json();
       setBookmarks(data.items);
       setTotalPages(data.numberPages);
       setError(null);
