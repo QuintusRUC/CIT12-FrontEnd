@@ -1,16 +1,15 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import Rating from "../Components/Rating";
 import fetchData from "../Components/FetchData";
 
-const RatingPage = ({ user }) => {
-  const [rating, setRating] = useState([]);
+const HistoryPage = ({ user }) => {
+  const [History, setHistory] = useState([]);
   const [Loading, setLoading] = useState(true);
   useEffect(() => {
-    fetchData("api/UserRating")
+    fetchData("api/SearchHistory ")
       .then((response) => response.json())
       .then((data) => {
-        setRating(data);
+        setHistory(data);
         setLoading(false);
       });
   }, []);
@@ -19,10 +18,15 @@ const RatingPage = ({ user }) => {
   }
   return (
     <div>
-      <h1>Your rating</h1>
-      {rating.map((item) => Rating(item))}
+      <h1>History</h1>
+      {History.map((item) => (
+        <div>
+          <h3>{item.search_term}</h3>
+          <p>{item.search_date}</p>
+        </div>
+      ))}
     </div>
   );
 };
 
-export default RatingPage;
+export default HistoryPage;

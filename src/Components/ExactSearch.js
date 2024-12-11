@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import Movie from "../Components/Movie";
-import fetchData from "../Components/FetchData";
-import { Pagination, handlePreviousPage, handleNextPage } from "../Components/Pagination";
+import Movie from "./Movie";
+import fetchData from "./FetchData";
+import { Pagination, handlePreviousPage, handleNextPage } from "./Pagination";
 
 const fetchSearchResults = async (keyword, page) => {
   if (!keyword) return null;
 
   try {
     const response = await fetchData(
-      `api/BestMatch/search?keyword1=${encodeURIComponent(keyword)}&page=${page}`
+      `api/ExactMatch/search?keyword1=${encodeURIComponent(keyword)}&page=${page}`
     );
     return await response;
   } catch (error) {
@@ -31,7 +31,7 @@ const SearchResults = ({ data, isLoading }) => {
   );
 };
 
-const SearchPage = () => {
+const ExactSearch = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
@@ -105,4 +105,4 @@ const SearchPage = () => {
   );
 };
 
-export default SearchPage;
+export default ExactSearch;

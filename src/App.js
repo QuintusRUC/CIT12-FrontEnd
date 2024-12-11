@@ -7,6 +7,11 @@ import Bookmark from "./routes/BookmarkPage";
 import Rating from "./routes/RatingPage";
 import MoviePage from "./routes/MoviePage";
 import NotFound from "./routes/NotFoud";
+import SearchHistoryPage from "./routes/SearchHistoryPage";
+import ActorPage from "./routes/ActorPage";
+import StringSearch from "./Components/StringSearch";
+import Structureearch from "./Components/StructuredSearch";
+import ExactSearch from "./Components/ExactSearch";
 import { BrowserRouter, Routes, Route } from "react-router";
 
 function App() {
@@ -14,30 +19,24 @@ function App() {
     id: 1,
     islogin: false,
   };
-  const user2 = {
-    id: 1,
-    islogin: true,
-  };
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Navbar user={user} />}>
           <Route index element={<Home />} />
-          <Route path="search" element={<Search />} />
+          <Route path="search" element={<Search />} >
+            <Route path="string" element={<StringSearch />} />
+            <Route path="structured" element={<Structureearch />} />
+            <Route path="exact" element={<ExactSearch />} />
+          </Route>
           <Route path="login" element={<Login />} />
           <Route path="bookmark" element={<Bookmark user={user} />} />
           <Route path="rating" element={<Rating user={user} />} />
           <Route path="movie/:title" element={<MoviePage />} />
+          <Route path="searchhistory" element={<SearchHistoryPage user={user} />} />
+          <Route path="actor/:name" element={<ActorPage />} />
           <Route path="*" element={<NotFound />} />
-        </Route>
-        <Route path="test/" element={<Navbar user={user2} />}>
-          <Route index element={<Home />} />
-          <Route path="search" element={<Search />} />
-          <Route path="login" element={<Login />} />
-          <Route path="bookmark" element={<Bookmark user={user2} />} />
-          <Route path="rating" element={<Rating user={user2} />} />
-          <Route path="movie/:title" element={<MoviePage />} />
-          <Route path="*" element={<NotFound />} />
+          
         </Route>
       </Routes>
     </BrowserRouter>
