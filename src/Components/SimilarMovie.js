@@ -54,27 +54,36 @@ function SimilarMovie({ movie_Title }) {
 
   return (
     <>
-      <h3>Similar Movies : </h3>
+        <h3>Similar Movies : </h3>
 
-      {movies.length === 0 ? (
-        <p>No similar movies found.</p>
-      ) : (
-        <>
-          <div className="movie-page">
-            {movies.map((item, index) => (
-              <Movie key={index} movie_Title={item.movieName} />
-            ))}
-          </div>
-          <Pagination
-            page={currentPage}
-            totalPages={totalPages}
-            onPreviousPage={() => handlePreviousPage(setCurrentPage)}
-            onNextPage={() => handleNextPage(setCurrentPage)}
-          />
-        </>
-      )}
+        {movies.length === 0 ? (
+            <p>No similar movies found.</p>
+        ) : (
+            <>
+                <div className="movie-page">
+                    {movies
+                        .filter((item) => item && item.movieName) // Validate each movie
+                        .map((item, index) => (
+                            <Movie
+                                key={index}
+                                movie={{
+                                    movie_Title: item.movieName,
+                                    poster_path: item.poster_path, // Ensure this is included
+                                }}
+                            />
+                        ))}
+                </div>
+                <Pagination
+                    page={currentPage}
+                    totalPages={totalPages}
+                    onPreviousPage={() => handlePreviousPage(setCurrentPage)}
+                    onNextPage={() => handleNextPage(setCurrentPage)}
+                />
+            </>
+        )}
     </>
-  );
+);
+
 }
 
 export default SimilarMovie;
