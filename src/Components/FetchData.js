@@ -1,21 +1,31 @@
-const fetchData = async (url) => {
+import axios from "axios";
+
+const TMDB_API_KEY =
+  "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkYzIxMDIxMzFjODI4ZWE1YjdhYWFjYjUwODZjMzIyZiIsIm5iZiI6MTczMTkzMTUwNS43NzMsInN1YiI6IjY3M2IyZDcxZGM0YmJjMDFjNjkxZGY2ZSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.IoVhYqGNMiZPSccZ6Axm9XSd2XCqolLSWAPozi-fpf8";
+const TMDB_BASE_URL = "https://api.themoviedb.org/3";
+
+const fetchData = async (title) => {
   try {
-      const port = process.env.REACT_APP_BACKEND_PORT || 7182;
-      const fullUrl = `https://localhost:${port}/${url}`;
+    const response = await axios.get(`${TMDB_BASE_URL}/search/movie`, {
+      headers: {
+        accept: "application/json",
+        Authorization: `Bearer ${TMDB_API_KEY}`,
+      },
+      params: { query: title },
+    });
 
-      const response = await fetch(fullUrl);
-
-      if (!response.ok) {
-          console.log("response", response);
-          throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const result = await response.json();
-      console.log("Fetched data:", result); // Log the response to debug structure
-      return result;
+    const movie = response.data.results[0];
+    return movie
+      ? {
+          poster_path: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
+          rating: movie.vote_average
+            ? parseFloat(movie.vote_average).toFixed(1) // Convert to number and format to 1 decimal
+            : "N/A",
+        }
+      : { poster_path: null, rating: "N/A" };
   } catch (error) {
-      console.error("Fetch error:", error);
-      throw error; // Re-throw to allow caller to handle
+    console.error("TMDB fetch error:", error);
+    return { poster_path: null, rating: "N/A" };
   }
 };
 
