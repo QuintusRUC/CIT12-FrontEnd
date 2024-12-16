@@ -2,6 +2,20 @@ import React, { useEffect, useState } from "react";
 import { useUser } from "../Contexts/UserContext";
 import fetchData from "../Components/FetchData";
 
+// Utility function to format date and time
+const formatDateTime = (dateString) => {
+  const date = new Date(dateString);
+  return date.toLocaleString("en-GB", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: false, // Use 24-hour format
+  });
+};
+
 const SearchHistoryPage = () => {
   const { user } = useUser();
   const [history, setHistory] = useState([]);
@@ -18,7 +32,10 @@ const SearchHistoryPage = () => {
 
       try {
         const response = await fetchData(`api/SearchHistory/User/${user.id}`);
-        if (Array.isArray(response)) {
+        console.log("Fetched Search History:", response);
+
+        // Check if response is valid
+        if (response && Array.isArray(response)) {
           setHistory(response);
         } else {
           throw new Error("Unexpected response format.");
@@ -34,6 +51,7 @@ const SearchHistoryPage = () => {
     fetchHistory();
   }, [user]);
 
+  // Loading and Error States
   if (loading) return <h1>Loading...</h1>;
   if (error) return <h1 style={{ color: "red" }}>{error}</h1>;
 
@@ -42,9 +60,11 @@ const SearchHistoryPage = () => {
       <h1>Search History</h1>
       {history.length > 0 ? (
         history.map((item) => (
-          <div key={item.searchId}>
+          <div key={item.searchId} style={{ borderBottom: "1px solid #ccc", padding: "10px 0" }}>
             <h3>Search Term: {item.searchTerm}</h3>
-            <p>Date: {new Date(item.searchDate).toLocaleString()}</p>
+            <p>
+              <strong>Date:</strong> {formatDateTime(item.searchDate)}
+            </p>
           </div>
         ))
       ) : (
